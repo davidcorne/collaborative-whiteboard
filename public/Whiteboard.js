@@ -1,6 +1,8 @@
 var Whiteboard = {
     canvas: null,
     context: null,
+    width: null,
+    height: null,
     socket: null,
     cursorDown: false,
     prevX: 0,
@@ -17,10 +19,16 @@ Whiteboard.init = function() {
     Whiteboard.socket.on("draw line", function(data) {
         Whiteboard.drawLineBetween(data.point_from, data.point_to);
     });
+    Whiteboard.socket.on("clear board", function() {
+        Whiteboard.context.clearRect(0, 0, Whiteboard.width, Whiteboard.height);
+    });
 
     // init the drawing
     Whiteboard.canvas = document.getElementsByTagName('canvas')[0];
     Whiteboard.context = Whiteboard.canvas.getContext("2d");
+    Whiteboard.width = Whiteboard.canvas.width;
+    Whiteboard.height = Whiteboard.canvas.height;
+
     Whiteboard.canvas.addEventListener("mousemove", function (event) {
         Whiteboard.cursor_move(event);
     }, false);
@@ -44,15 +52,19 @@ Whiteboard.drawLineBetween = function (point_from, point_to) {
     
 };
 
+Whiteboard.clear = function() {
+    Whiteboard.socket.emit("clear board");
+};
+
 Whiteboard.draw = function () {
-    var point_from = new Shared.Point(Whiteboard.prevX, Whiteboard.prevY);
-    var point_to = new Shared.Point(Whiteboard.currX, Whiteboard.currY);
-    Whiteboard.drawLineBetween(point_from, point_to);
     Whiteboard.socket.emit(
         "draw line", 
-        {point_from: point_from, point_to: point_to}
+        {
+            point_from: new Shared.Point(Whiteboard.prevX, Whiteboard.prevY),
+            point_to: new Shared.Point(Whiteboard.currX, Whiteboard.currY)
+        }
     );
-}
+};
 
 Whiteboard.cursor_move = function(event) {
     if (Whiteboard.cursorDown) {

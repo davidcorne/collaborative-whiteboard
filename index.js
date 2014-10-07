@@ -26,6 +26,10 @@ io.on("connection", function(socket) {
         io.emit("draw line", data);
         lines.push(data);
     });
+    socket.on("clear board", function() {
+        io.emit("clear board");
+        lines = [];
+    });
     // Now draw all the existing lines.
     var index = 0;
     for (index = 0; index < lines.length; index++) {
