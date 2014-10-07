@@ -1,0 +1,8 @@
+{
+  "name": "collaborative-whiteboard-example",
+  "version": "0.0.1",
+  "description": "An interactive/collaborative whiteboard",
+  "dependencies": {
+    "express": "^4.9.5"
+  }
+}
