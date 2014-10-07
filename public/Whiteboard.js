@@ -17,10 +17,14 @@ Whiteboard.init = function() {
     // init the socket communication
     Whiteboard.socket = io();
     Whiteboard.socket.on(Shared.Events.draw_line, function(data) {
-        Whiteboard.drawLineBetween(data.point_from, data.point_to);
+        Whiteboard.drawLineBetween(data.point_from, data.point_to, data.colour);
     });
     Whiteboard.socket.on(Shared.Events.clear_board, function() {
         Whiteboard.context.clearRect(0, 0, Whiteboard.width, Whiteboard.height);
+    });
+    Whiteboard.socket.on(Shared.Events.change_line_colour, function(lineColour) {
+        Whiteboard.lineColour = lineColour;
+        Whiteboard.displayCurrentColour();
     });
 
     // init the drawing
@@ -41,14 +45,19 @@ Whiteboard.init = function() {
         event.preventDefault();
         Whiteboard.cursor_up(event);
     }, false);
-    
+
+    Whiteboard.displayCurrentColour();
 };
 
-Whiteboard.drawLineBetween = function (point_from, point_to) {
+Whiteboard.displayCurrentColour = function () {
+    document.getElementById("current-colour").style.background = Whiteboard.lineColour;
+};
+
+Whiteboard.drawLineBetween = function (point_from, point_to, colour) {
     Whiteboard.context.beginPath();
     Whiteboard.context.moveTo(point_from.x, point_from.y);
     Whiteboard.context.lineTo(point_to.x, point_to.y);
-    Whiteboard.context.strokeStyle = Whiteboard.lineColour;
+    Whiteboard.context.strokeStyle = colour;
     Whiteboard.context.lineWidth = Whiteboard.lineWidth;
     Whiteboard.context.stroke();
     Whiteboard.context.closePath();
@@ -64,7 +73,8 @@ Whiteboard.draw = function () {
         Shared.Events.draw_line, 
         {
             point_from: new Shared.Point(Whiteboard.prevX, Whiteboard.prevY),
-            point_to: new Shared.Point(Whiteboard.currX, Whiteboard.currY)
+            point_to: new Shared.Point(Whiteboard.currX, Whiteboard.currY),
+            colour: Whiteboard.lineColour
         }
     );
 };
