@@ -12,6 +12,12 @@ app.get("/public/*", function(request, response) {
 
 io.on("connection", function(socket) {
     console.log("A user connected.");
+    socket.on("disconnect", function() {
+        console.log("A user disconnected.");
+    });
+    socket.on("draw line", function(point_from, point_to) {
+        io.emit("draw line", point_from, point_to);
+    });
 });
 
 http.listen(3000, function() {

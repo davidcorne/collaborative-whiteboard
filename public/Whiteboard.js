@@ -1,6 +1,7 @@
 var Whiteboard = {
     canvas: null,
     context: null,
+    socket: null,
     cursorDown: false,
     prevX: 0,
     currX: 0,
@@ -11,6 +12,12 @@ var Whiteboard = {
 };
 
 Whiteboard.init = function() {
+    // init the socket communication
+    Whiteboard.socket = io();
+    Whiteboard.socket.on("draw line", function(point_from, point_to) {
+        Whiteboard.drawLineBetween(point_from, point_to);
+    });
+
     // init the drawing
     Whiteboard.canvas = document.getElementsByTagName('canvas')[0];
     Whiteboard.context = Whiteboard.canvas.getContext("2d");
@@ -24,18 +31,24 @@ Whiteboard.init = function() {
         Whiteboard.cursor_up(event);
     }, false);
     
-    // init the socket communication
-    var socket = io();
 };
 
-Whiteboard.draw = function () {
+Whiteboard.drawLineBetween = function (point_from, point_to) {
     Whiteboard.context.beginPath();
-    Whiteboard.context.moveTo(Whiteboard.prevX, Whiteboard.prevY);
-    Whiteboard.context.lineTo(Whiteboard.currX, Whiteboard.currY);
+    Whiteboard.context.moveTo(point_from.x, point_from.y);
+    Whiteboard.context.lineTo(point_to.x, point_to.y);
     Whiteboard.context.strokeStyle = Whiteboard.lineColour;
     Whiteboard.context.lineWidth = Whiteboard.lineWidth;
     Whiteboard.context.stroke();
     Whiteboard.context.closePath();
+    
+};
+
+Whiteboard.draw = function () {
+    var point_from = {x: Whiteboard.prevX, y:Whiteboard.prevY};
+    var point_to = {x: Whiteboard.currX, y:Whiteboard.currY};
+    Whiteboard.drawLineBetween(point_from, point_to);
+    Whiteboard.socket.emit("draw line", point_from, point_to);
 }
 
 Whiteboard.cursor_move = function(event) {
