@@ -11,6 +11,7 @@ app.get("/public/*", function(request, response) {
 })
 
 var numberOfUsers = 0;
+var lines = [];
 
 io.on("connection", function(socket) {
     numberOfUsers += 1;
@@ -23,7 +24,13 @@ io.on("connection", function(socket) {
     });
     socket.on("draw line", function(data) {
         io.emit("draw line", data);
+        lines.push(data);
     });
+    // Now draw all the existing lines.
+    var index = 0;
+    for (index = 0; index < lines.length; index++) {
+        socket.emit("draw line", lines[index]);
+    }
 });
 
 http.listen(3000, function() {
