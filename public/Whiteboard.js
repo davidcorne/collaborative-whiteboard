@@ -14,8 +14,8 @@ var Whiteboard = {
 Whiteboard.init = function() {
     // init the socket communication
     Whiteboard.socket = io();
-    Whiteboard.socket.on("draw line", function(point_from, point_to) {
-        Whiteboard.drawLineBetween(point_from, point_to);
+    Whiteboard.socket.on("draw line", function(data) {
+        Whiteboard.drawLineBetween(data.point_from, data.point_to);
     });
 
     // init the drawing
@@ -48,7 +48,10 @@ Whiteboard.draw = function () {
     var point_from = {x: Whiteboard.prevX, y:Whiteboard.prevY};
     var point_to = {x: Whiteboard.currX, y:Whiteboard.currY};
     Whiteboard.drawLineBetween(point_from, point_to);
-    Whiteboard.socket.emit("draw line", point_from, point_to);
+    Whiteboard.socket.emit(
+        "draw line", 
+        {point_from: point_from, point_to: point_to}
+    );
 }
 
 Whiteboard.cursor_move = function(event) {

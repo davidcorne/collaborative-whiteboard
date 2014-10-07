@@ -10,13 +10,19 @@ app.get("/public/*", function(request, response) {
     response.sendFile(__dirname + request.path);
 })
 
+var numberOfUsers = 0;
+
 io.on("connection", function(socket) {
-    console.log("A user connected.");
+    numberOfUsers += 1;
+    console.log("A user connected, there are " + numberOfUsers + " users.");
     socket.on("disconnect", function() {
-        console.log("A user disconnected.");
+        numberOfUsers -= 1;
+        console.log(
+            "A user disconnected, there are " + numberOfUsers + " users."
+        );
     });
-    socket.on("draw line", function(point_from, point_to) {
-        io.emit("draw line", point_from, point_to);
+    socket.on("draw line", function(data) {
+        io.emit("draw line", data);
     });
 });
 
