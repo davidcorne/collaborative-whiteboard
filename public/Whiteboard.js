@@ -11,6 +11,7 @@ var Whiteboard = {
 };
 
 Whiteboard.init = function() {
+    // init the drawing
     Whiteboard.canvas = document.getElementsByTagName('canvas')[0];
     Whiteboard.context = Whiteboard.canvas.getContext("2d");
     Whiteboard.canvas.addEventListener("mousemove", function (event) {
@@ -22,6 +23,9 @@ Whiteboard.init = function() {
     Whiteboard.canvas.addEventListener("mouseup", function (event) {
         Whiteboard.cursor_up(event);
     }, false);
+    
+    // init the socket communication
+    var socket = io();
 };
 
 Whiteboard.draw = function () {
