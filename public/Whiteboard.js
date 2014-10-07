@@ -45,8 +45,8 @@ Whiteboard.drawLineBetween = function (point_from, point_to) {
 };
 
 Whiteboard.draw = function () {
-    var point_from = {x: Whiteboard.prevX, y:Whiteboard.prevY};
-    var point_to = {x: Whiteboard.currX, y:Whiteboard.currY};
+    var point_from = new Shared.Point(Whiteboard.prevX, Whiteboard.prevY);
+    var point_to = new Shared.Point(Whiteboard.currX, Whiteboard.currY);
     Whiteboard.drawLineBetween(point_from, point_to);
     Whiteboard.socket.emit(
         "draw line", 
