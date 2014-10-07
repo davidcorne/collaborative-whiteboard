@@ -16,10 +16,10 @@ var Whiteboard = {
 Whiteboard.init = function() {
     // init the socket communication
     Whiteboard.socket = io();
-    Whiteboard.socket.on("draw line", function(data) {
+    Whiteboard.socket.on(Shared.Events.draw_line, function(data) {
         Whiteboard.drawLineBetween(data.point_from, data.point_to);
     });
-    Whiteboard.socket.on("clear board", function() {
+    Whiteboard.socket.on(Shared.Events.clear_board, function() {
         Whiteboard.context.clearRect(0, 0, Whiteboard.width, Whiteboard.height);
     });
 
@@ -30,12 +30,15 @@ Whiteboard.init = function() {
     Whiteboard.height = Whiteboard.canvas.height;
 
     Whiteboard.canvas.addEventListener("mousemove", function (event) {
+        event.preventDefault();
         Whiteboard.cursor_move(event);
     }, false);
     Whiteboard.canvas.addEventListener("mousedown", function (event) {
+        event.preventDefault();
         Whiteboard.cursor_down(event);
     }, false);
     Whiteboard.canvas.addEventListener("mouseup", function (event) {
+        event.preventDefault();
         Whiteboard.cursor_up(event);
     }, false);
     
@@ -53,12 +56,12 @@ Whiteboard.drawLineBetween = function (point_from, point_to) {
 };
 
 Whiteboard.clear = function() {
-    Whiteboard.socket.emit("clear board");
+    Whiteboard.socket.emit(Shared.Events.clear_board);
 };
 
 Whiteboard.draw = function () {
     Whiteboard.socket.emit(
-        "draw line", 
+        Shared.Events.draw_line, 
         {
             point_from: new Shared.Point(Whiteboard.prevX, Whiteboard.prevY),
             point_to: new Shared.Point(Whiteboard.currX, Whiteboard.currY)

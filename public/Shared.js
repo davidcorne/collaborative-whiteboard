@@ -8,3 +8,8 @@ Shared.Point = function(x, y) {
     this.x = x;
     this.y = y;
 };
+
+Shared.Events = {
+    draw_line: "draw line",
+    clear_board: "clear board",
+};

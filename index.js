@@ -1,6 +1,7 @@
 var app = require("express")();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
+var Shared = require("./public/Shared");
 
 app.get("/", function(request, response) {
     response.sendFile(__dirname + "/public/index.html");
@@ -22,18 +23,18 @@ io.on("connection", function(socket) {
             "A user disconnected, there are " + numberOfUsers + " users."
         );
     });
-    socket.on("draw line", function(data) {
-        io.emit("draw line", data);
+    socket.on(Shared.Events.draw_line, function(data) {
+        io.emit(Shared.Events.draw_line, data);
         lines.push(data);
     });
-    socket.on("clear board", function() {
-        io.emit("clear board");
+    socket.on(Shared.Events.clear_board, function() {
+        io.emit(Shared.Events.clear_board);
         lines = [];
     });
     // Now draw all the existing lines.
     var index = 0;
     for (index = 0; index < lines.length; index++) {
-        socket.emit("draw line", lines[index]);
+        socket.emit(Shared.Events.draw_line, lines[index]);
     }
 });
 
