@@ -26,6 +26,8 @@ io.on("connection", function(socket) {
     socket.emit(Shared.Events.users_changed, users);
 
     nextUserID += 1;
+    
+    // Set up the events.
     socket.on("disconnect", function() {
         numberOfUsers -= 1;
         console.log(
@@ -48,6 +50,7 @@ io.on("connection", function(socket) {
         users[data.user] = data.name;
         console.log(users);
     });
+
     // Now draw all the existing lines.
     var index = 0;
     for (index = 0; index < lines.length; index++) {
