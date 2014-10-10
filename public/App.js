@@ -1,12 +1,10 @@
 Whiteboard.App = {
-
 };
 
 Whiteboard.App.init = function() {
-    // init the controller.
-    Whiteboard.Controller.init();
-
+    var controller = new Whiteboard.Controller(Whiteboard.View);
     // init the drawing
-    Whiteboard.View.init(Whiteboard.Controller)
-    Whiteboard.View.displayCurrentColour(Whiteboard.Controller.lineColour);
+    Whiteboard.View.init(controller);
+    Whiteboard.View.displayCurrentColour(controller.lineColour);
+    controller.startListening(io());
 };
