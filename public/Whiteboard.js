@@ -27,9 +27,12 @@ Whiteboard.init = function() {
     Whiteboard.socket.on(Shared.Events.change_user_id, function(data) {
         Whiteboard.userID = data.id;
     });
+    Whiteboard.socket.on(Shared.Events.users_changed, function(users) {
+        Whiteboard.drawUsers(users);
+    });
 
     // init the drawing
-    Whiteboard.canvas = document.getElementsByTagName('canvas')[0];
+    Whiteboard.canvas = document.getElementsByTagName("canvas")[0];
     Whiteboard.context = Whiteboard.canvas.getContext("2d");
     Whiteboard.width = Whiteboard.canvas.width;
     Whiteboard.height = Whiteboard.canvas.height;
@@ -52,6 +55,17 @@ Whiteboard.init = function() {
 
 Whiteboard.displayCurrentColour = function () {
     document.getElementById("current-colour").style.background = Whiteboard.lineColour;
+};
+
+Whiteboard.drawUsers = function(users) {
+    var ul = document.getElementById("current-users");
+    // clear the current users tag.
+    ul.innerHTML = "";
+    for (var userID in users) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(users[userID]));
+        ul.appendChild(li);
+    }
 };
 
 Whiteboard.setColour = function(imageElement) {
