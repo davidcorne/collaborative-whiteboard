@@ -11,6 +11,8 @@ var Whiteboard = {
     currY: 0,
     lineColour: "black",
     lineWidth: 2,
+    userID: null,
+    userName: "Dave",
 };
 
 Whiteboard.init = function() {
@@ -21,6 +23,9 @@ Whiteboard.init = function() {
     });
     Whiteboard.socket.on(Shared.Events.clear_board, function() {
         Whiteboard.context.clearRect(0, 0, Whiteboard.width, Whiteboard.height);
+    });
+    Whiteboard.socket.on(Shared.Events.change_user_id, function(data) {
+        Whiteboard.userID = data.id;
     });
 
     // init the drawing
@@ -67,6 +72,16 @@ Whiteboard.drawLineBetween = function (point_from, point_to, colour) {
 
 Whiteboard.clear = function() {
     Whiteboard.socket.emit(Shared.Events.clear_board);
+};
+
+Whiteboard.changeName = function() {
+    var input = document.getElementById("change-username");
+    var data = {
+        name: input.value,
+        user: Whiteboard.userID
+    };
+    Whiteboard.socket.emit(Shared.Events.change_name, data);
+    input.value = "";
 };
 
 Whiteboard.draw = function () {

@@ -13,10 +13,15 @@ app.get("/public/*", function(request, response) {
 
 var numberOfUsers = 0;
 var lines = [];
+var nextUserID = 0;
+var users = {};
 
 io.on("connection", function(socket) {
     numberOfUsers += 1;
-    console.log("A user connected, there are " + numberOfUsers + " users.");
+    users[nextUserID] = nextUserID;
+    console.log("A user connected given id " + nextUserID + ", there are " + numberOfUsers + " users.");
+    socket.emit(Shared.Events.change_user_id, {id: nextUserID});
+    nextUserID += 1;
     socket.on("disconnect", function() {
         numberOfUsers -= 1;
         console.log(
@@ -30,6 +35,11 @@ io.on("connection", function(socket) {
     socket.on(Shared.Events.clear_board, function() {
         io.emit(Shared.Events.clear_board);
         lines = [];
+    });
+    socket.on(Shared.Events.change_name, function(data) {
+        console.log("change_name");
+        users[data.user] = data.name;
+        console.log(users);
     });
     // Now draw all the existing lines.
     var index = 0;
