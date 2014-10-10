@@ -22,17 +22,22 @@ io.on("connection", function(socket) {
     console.log("A user connected given id " + nextUserID + ", there are " + numberOfUsers + " users.");
     // Set the id on the new user.
     socket.emit(Shared.Events.change_user_id, {id: nextUserID});
-    // Give all the users to it.
-    socket.emit(Shared.Events.users_changed, users);
-
+    socket.emit(Shared.Events.change_name, {userName: users[nextUserID]});
+    // The users have changed
+    io.emit(Shared.Events.users_changed, users);
+    
+    socket.userID = nextUserID;
+    
     nextUserID += 1;
     
     // Set up the events.
     socket.on("disconnect", function() {
         numberOfUsers -= 1;
         console.log(
-            "A user disconnected, there are " + numberOfUsers + " users."
+            socket.userID + " disconnected, there are " + numberOfUsers + " users."
         );
+        delete users[socket.userID];
+        io.emit(Shared.Events.users_changed, users);
     });
     socket.on(Shared.Events.draw_line, function(data) {
         io.emit(Shared.Events.draw_line, data);

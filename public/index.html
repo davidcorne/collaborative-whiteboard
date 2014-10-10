@@ -6,6 +6,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="public/Shared.js"></script>
 <script src="public/Whiteboard.js"></script>
+  <link rel="stylesheet" type="text/css" href="public/index.css">
 <body onload="Whiteboard.init()">
     <canvas width="400" height="400" style="border:2px solid;"></canvas>
     <input  type="button" value="clear" size="23" onclick="Whiteboard.clear()">
@@ -13,10 +14,10 @@
     <img id="red"   style="background: red" width="10" height="10" onclick="Whiteboard.setColour(this)">
     <img id="blue"  style="background: blue" width="10" height="10" onclick="Whiteboard.setColour(this)">
     <img id="current-colour" width="10" height="10">
-    <form action="">
+    <form action="">
       <input id="change-username" autocomplete="off" />
       <input type="button" onclick="Whiteboard.changeName()" value="Change Username"/>
-    </form>
+    </form>
     <ul id="current-users"><ul>
 </body>
 </html>

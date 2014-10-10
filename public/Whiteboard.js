@@ -12,7 +12,7 @@ var Whiteboard = {
     lineColour: "black",
     lineWidth: 2,
     userID: null,
-    userName: "Dave",
+    userName: null
 };
 
 Whiteboard.init = function() {
@@ -29,6 +29,9 @@ Whiteboard.init = function() {
     });
     Whiteboard.socket.on(Shared.Events.users_changed, function(users) {
         Whiteboard.drawUsers(users);
+    });
+    Whiteboard.socket.on(Shared.Events.change_name, function(data) {
+        Whiteboard.userName = data.userName;
     });
 
     // init the drawing
@@ -63,7 +66,11 @@ Whiteboard.drawUsers = function(users) {
     ul.innerHTML = "";
     for (var userID in users) {
         var li = document.createElement("li");
-        li.appendChild(document.createTextNode(users[userID]));
+        var userName = users[userID];
+        if (userName === Whiteboard.userName) {
+            li.style.color = "red";
+        }
+        li.appendChild(document.createTextNode(userName));
         ul.appendChild(li);
     }
 };
@@ -90,12 +97,12 @@ Whiteboard.clear = function() {
 
 Whiteboard.changeName = function() {
     var input = document.getElementById("change-username");
+    input.value = "";
     var data = {
         name: input.value,
         user: Whiteboard.userID
     };
     Whiteboard.socket.emit(Shared.Events.change_name, data);
-    input.value = "";
 };
 
 Whiteboard.draw = function () {
