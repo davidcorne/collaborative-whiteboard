@@ -24,6 +24,18 @@ Whiteboard.View = function(canvas) {
             event.preventDefault();
         self.cursor_up(event);
         }, false);
+        self.canvas.addEventListener("touchmove", function (event) {
+            event.preventDefault();
+            self.cursor_move(event.touches[0]);
+        });
+        self.canvas.addEventListener("touchstart", function (event) {
+            event.preventDefault();
+            self.cursor_down(event.touches[0]);
+        });
+        self.canvas.addEventListener("touchend", function (event) {
+            event.preventDefault();
+            self.cursor_up(event.touches[0]);
+        });
     };
     this.addMouseEvents();
 
