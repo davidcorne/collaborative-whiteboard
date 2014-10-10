@@ -13,7 +13,6 @@ app.get("/public/*", function(request, response) {
 
 var numberOfUsers = 0;
 var lines = [];
-var colours = ["black", "red", "blue", "green"];
 
 io.on("connection", function(socket) {
     numberOfUsers += 1;
@@ -37,11 +36,6 @@ io.on("connection", function(socket) {
     for (index = 0; index < lines.length; index++) {
         socket.emit(Shared.Events.draw_line, lines[index]);
     }
-    socket.emit(
-        Shared.Events.change_line_colour, 
-        colours[numberOfUsers % colours.length] 
-    );
-    console.log("This is a " + colours[numberOfUsers % colours.length] + " user.");
 });
 
 http.listen(3000, function() {

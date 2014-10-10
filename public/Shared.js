@@ -12,5 +12,4 @@ Shared.Point = function(x, y) {
 Shared.Events = {
     draw_line: "draw line",
     clear_board: "clear board",
-    change_line_colour: "change line colour",
 };

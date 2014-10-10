@@ -22,10 +22,6 @@ Whiteboard.init = function() {
     Whiteboard.socket.on(Shared.Events.clear_board, function() {
         Whiteboard.context.clearRect(0, 0, Whiteboard.width, Whiteboard.height);
     });
-    Whiteboard.socket.on(Shared.Events.change_line_colour, function(lineColour) {
-        Whiteboard.lineColour = lineColour;
-        Whiteboard.displayCurrentColour();
-    });
 
     // init the drawing
     Whiteboard.canvas = document.getElementsByTagName('canvas')[0];
@@ -51,6 +47,11 @@ Whiteboard.init = function() {
 
 Whiteboard.displayCurrentColour = function () {
     document.getElementById("current-colour").style.background = Whiteboard.lineColour;
+};
+
+Whiteboard.setColour = function(imageElement) {
+    Whiteboard.lineColour = imageElement.id;
+    Whiteboard.displayCurrentColour();
 };
 
 Whiteboard.drawLineBetween = function (point_from, point_to, colour) {
