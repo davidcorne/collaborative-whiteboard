@@ -19,7 +19,16 @@ Whiteboard.Controller.init = function() {
         Whiteboard.Controller.userID = data.id;
     });
     Whiteboard.Controller.socket.on(Shared.Events.users_changed, function(users) {
-        Whiteboard.View.drawUsers(users);
+        var userPairs = [];
+        for (var userID in users) {
+            var userName = users[userID];
+            var colour = "black";
+            if (userName === Whiteboard.Controller.userName) {
+                colour = "red";
+            }
+            userPairs.push({userName: userName, colour: colour});
+        }
+        Whiteboard.View.drawUsers(userPairs);
     });
     Whiteboard.Controller.socket.on(Shared.Events.change_name, function(data) {
         Whiteboard.Controller.userName = data.userName;

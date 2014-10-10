@@ -50,17 +50,14 @@ Whiteboard.View.clear = function() {
     Whiteboard.View.controller.clear()
 };
 
-Whiteboard.View.drawUsers = function(users) {
+Whiteboard.View.drawUsers = function(usersPairs) {
     var ul = document.getElementById("current-users");
     // clear the current users tag.
     ul.innerHTML = "";
-    for (var userID in users) {
+    for (var i = 0; i < usersPairs.length; ++i) {
         var li = document.createElement("li");
-        var userName = users[userID];
-        if (userName === Whiteboard.View.controller.userName) {
-            li.style.color = "red";
-        }
-        li.appendChild(document.createTextNode(userName));
+        li.style.color = usersPairs[i].colour;
+        li.appendChild(document.createTextNode(usersPairs[i].userName));
         ul.appendChild(li);
     }
 };
