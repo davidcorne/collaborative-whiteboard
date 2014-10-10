@@ -48,12 +48,9 @@ io.on("connection", function(socket) {
         lines = [];
     });
     socket.on(Shared.Events.change_name, function(data) {
-        users[data.user] = data.name;
+        users[data.userID] = data.userName;
+        socket.emit(Shared.Events.change_name, data);
         io.emit(Shared.Events.users_changed, users);
-    });
-    socket.on(Shared.Events.users_changed, function(data) {
-        users[data.user] = data.name;
-        console.log(users);
     });
 
     // Now draw all the existing lines.

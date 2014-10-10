@@ -97,12 +97,12 @@ Whiteboard.clear = function() {
 
 Whiteboard.changeName = function() {
     var input = document.getElementById("change-username");
-    input.value = "";
     var data = {
-        name: input.value,
-        user: Whiteboard.userID
+        userName: input.value,
+        userID: Whiteboard.userID
     };
     Whiteboard.socket.emit(Shared.Events.change_name, data);
+    input.value = "";
 };
 
 Whiteboard.draw = function () {
