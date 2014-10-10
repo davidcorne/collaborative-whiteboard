@@ -2,9 +2,12 @@ Whiteboard.App = {
 };
 
 Whiteboard.App.init = function() {
-    var controller = new Whiteboard.Controller(Whiteboard.View);
-    // init the drawing
-    Whiteboard.View.init(controller);
-    Whiteboard.View.displayCurrentColour(controller.lineColour);
-    controller.startListening(io());
+    Whiteboard.App.view = 
+        new Whiteboard.View(document.getElementsByTagName("canvas")[0]);
+    Whiteboard.App.controller = new Whiteboard.Controller(Whiteboard.App.view);
+    Whiteboard.App.view.controller = Whiteboard.App.controller;
+    Whiteboard.App.view.displayCurrentColour(
+        Whiteboard.App.controller.lineColour
+    );
+    Whiteboard.App.controller.startListening(io());
 };

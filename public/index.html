@@ -12,14 +12,14 @@
 <link rel="stylesheet" type="text/css" href="public/index.css">
 <body onload="Whiteboard.App.init()">
     <canvas width="400" height="400" style="border:2px solid;"></canvas>
-    <input  type="button" value="clear" size="23" onclick="Whiteboard.View.clear()">
-    <img id="black" style="background: black" width="10" height="10" onclick="Whiteboard.View.setColour(this)">
-    <img id="red"   style="background: red" width="10" height="10" onclick="Whiteboard.View.setColour(this)">
-    <img id="blue"  style="background: blue" width="10" height="10" onclick="Whiteboard.View.setColour(this)">
+    <input  type="button" value="clear" size="23" onclick="Whiteboard.App.view.clear()">
+    <img id="black" style="background: black" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
+    <img id="red"   style="background: red" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
+    <img id="blue"  style="background: blue" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
     <img id="current-colour" width="10" height="10">
     <form action="">
       <input id="change-username" autocomplete="off" />
-      <input type="button" onclick="Whiteboard.View.changeName()" value="Change Username"/>
+      <input type="button" onclick="Whiteboard.App.view.changeName()" value="Change Username"/>
     </form>
     <ul id="current-users"><ul>
 </body>
