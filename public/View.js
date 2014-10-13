@@ -74,12 +74,12 @@ Whiteboard.View = function(canvas) {
         }
     };
 
-    this.drawLineBetween = function (point_from, point_to, colour) {
+    this.drawLineBetween = function (point_from, point_to, colour, lineWidth) {
         this.context.beginPath();
         this.context.moveTo(point_from.x, point_from.y);
         this.context.lineTo(point_to.x, point_to.y);
         this.context.strokeStyle = colour;
-        this.context.lineWidth = Whiteboard.lineWidth;
+        this.context.lineWidth = lineWidth;
         this.context.stroke();
         this.context.closePath();
         

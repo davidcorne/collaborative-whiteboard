@@ -16,7 +16,12 @@ Whiteboard.Controller = function(view) {
         var self = this;
         self.socket = socket
         self.socket.on(Shared.Events.draw_line, function(data) {
-            self.view.drawLineBetween(data.point_from, data.point_to, data.colour);
+            self.view.drawLineBetween(
+                data.point_from, 
+                data.point_to, 
+                data.colour,
+                data.lineWidth
+            );
         });
         self.socket.on(Shared.Events.clear_board, function() {
             self.view.clearCanvas();
@@ -49,7 +54,8 @@ Whiteboard.Controller = function(view) {
             {
                 point_from: point_a,
                 point_to: point_b,
-                colour: this.lineColour
+                colour: this.lineColour,
+                lineWidth: this.lineWidth
             }
         );
     };
