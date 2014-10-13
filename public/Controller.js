@@ -1,3 +1,9 @@
+// if imported by node, initialise Whiteboard
+if (typeof exports != "undefined") {
+    var Whiteboard = {};
+    var Shared = require("./Shared");
+}
+
 Whiteboard.Controller = function(view) {
     this.view = view;
     this.lineColour = "black";
@@ -19,22 +25,24 @@ Whiteboard.Controller = function(view) {
             self.userID = data.id;
         });
         self.socket.on(Shared.Events.users_changed, function(users) {
-            var userPairs = [];
-            for (var userID in users) {
-                var userName = users[userID];
-                var colour = "black";
-                if (userName === self.userName) {
-                    colour = "red";
-                }
-                userPairs.push({userName: userName, colour: colour});
-            }
-            self.view.drawUsers(userPairs);
+            self.usersChanged(users);
         });
         self.socket.on(Shared.Events.change_name, function(data) {
             self.userName = data.userName;
         });
     }
 
+    this.usersChanged = function(users) {
+        var userPairs = [];
+        for (var userID in users) {
+            var colour = "black";
+            if (userID == this.userID) {
+                colour = "red";
+            }
+            userPairs.push({userName: users[userID], colour: colour});
+        }
+        this.view.drawUsers(userPairs);
+    };
     this.drawLine = function(point_a, point_b) {
         this.socket.emit(
             Shared.Events.draw_line, 
@@ -63,3 +71,7 @@ Whiteboard.Controller = function(view) {
         this.socket.emit(Shared.Events.change_name, data);
     };
 };
+
+if (typeof exports != "undefined") {
+    exports.Controller = Whiteboard.Controller;
+}
