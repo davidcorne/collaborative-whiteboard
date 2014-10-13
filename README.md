@@ -1,4 +1,4 @@
 # Whiteboard #
 
-This is going to be a html whiteboard you can draw on. Then I will make it collaborative using socket.io.
+This is a collaborative html whiteboard. There is a choice of pen colours and you can change your user name.
 
