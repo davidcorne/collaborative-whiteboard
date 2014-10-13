@@ -13,12 +13,12 @@ app.get("/public/*", function(request, response) {
 
 var numberOfUsers = 0;
 var lines = [];
-var nextUserID = 0;
+var nextUserID = 1;
 var users = {};
 
 io.on("connection", function(socket) {
     numberOfUsers += 1;
-    users[nextUserID] = "user_" + nextUserID;
+    users[nextUserID] = "User " + nextUserID;
     console.log("A user connected given id " + nextUserID + ", there are " + numberOfUsers + " users.");
     // Set the id on the new user.
     socket.emit(Shared.Events.change_user_id, {id: nextUserID});
