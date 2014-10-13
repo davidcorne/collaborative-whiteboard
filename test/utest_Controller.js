@@ -6,7 +6,7 @@ var Mocks = require("./Mocks");
 describe("Controller", function() {
     it("clear", function() {
         var controller = new Controller.Controller();
-        var socket = new Mocks.MockSocket();
+        var socket = new Mocks.MockListeningSocket();
         controller.socket = socket;
         controller.clear();
         test.assert(socket.emitted.length === 1);
@@ -42,7 +42,7 @@ describe("Controller", function() {
     });
     it("emit draw line", function() {
         var controller = new Controller.Controller();
-        var socket = new Mocks.MockSocket();
+        var socket = new Mocks.MockListeningSocket();
         controller.socket = socket;
         controller.drawLine({x: 10, y: 10}, {x: 15, y: 10});
         test.assert(socket.emitted.length === 1);

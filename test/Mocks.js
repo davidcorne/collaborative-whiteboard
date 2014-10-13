@@ -1,6 +1,6 @@
 var Mocks = exports;
 
-Mocks.MockSocket = function() {
+Mocks.MockListeningSocket = function() {
     this.emitted = [];
     this.emit = function(eventName, data) {
         this.emitted.push({eventName: eventName, data: data});
