@@ -19,6 +19,7 @@
     <img id="green"  style="background: green" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
     <img id="orange"  style="background: orange" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
     <img id="current-colour" width="10" height="10">
+    <input id="current-line-width" type="range" onchange="Whiteboard.App.view.setLineWidth(this)" min="1" max="10">
     <form action="">
       <input id="change-username" autocomplete="off" />
       <input type="button" onclick="Whiteboard.App.view.changeName()" value="Change Username"/>

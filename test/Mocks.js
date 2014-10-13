@@ -29,4 +29,8 @@ Mocks.MockView = function() {
     this.drawUsers = function(users) {
         this.users = users;
     };
+    this.displayCurrentColour = function(colour) {
+    };
+    this.displayCurrentLineWidth = function(colour) {
+    };
 };

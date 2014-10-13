@@ -5,9 +5,9 @@ if (typeof exports != "undefined") {
 }
 
 Whiteboard.Controller = function(view) {
-    this.view = view;
-    this.lineColour = "black";
-    this.lineWidth = 2;
+    this.view = null;
+    this.lineColour = null;
+    this.lineWidth = null;
     this.userID = null;
     this.userName = null;
     this.socket = null;
@@ -65,6 +65,11 @@ Whiteboard.Controller = function(view) {
         this.view.displayCurrentColour(colour);
     };
 
+    this.setLineWidth = function(width) {
+        this.lineWidth = width;
+        this.view.displayCurrentLineWidth(width);
+    };
+
     this.clear = function() {
         this.socket.emit(Shared.Events.clearBoard);
     }
@@ -76,6 +81,14 @@ Whiteboard.Controller = function(view) {
         };
         this.socket.emit(Shared.Events.changeName, data);
     };
+    this.setView = function(view) {
+        if (view) {
+            this.view = view;
+            this.setColour("black");
+            this.setLineWidth(2);
+        };
+    };
+    this.setView(view);
 };
 
 if (typeof exports != "undefined") {

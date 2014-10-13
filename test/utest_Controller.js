@@ -53,10 +53,6 @@ describe("Controller", function() {
         test.assert(socket.emitted[0].data.pointTo.x === 15);
         test.assert(socket.emitted[0].data.pointTo.y === 10);
 
-        // test the default lineWidth/colour
-        test.assert(socket.emitted[0].data.colour === "black");
-        test.assert(socket.emitted[0].data.lineWidth === 2);
-
         controller.lineColour = "unknown-colour";
         controller.drawLine({x: 10, y: 10}, {x: 15, y: 10});
         test.assert(socket.emitted.length === 2);

@@ -45,8 +45,12 @@ Whiteboard.View = function(canvas) {
     };
     this.addMouseEvents();
 
-    this.displayCurrentColour = function (colour) {
+    this.displayCurrentColour = function(colour) {
         document.getElementById("current-colour").style.background = colour;
+    };
+
+    this.displayCurrentLineWidth = function(width) {
+        document.getElementById("current-line-width").value = width;
     };
 
     this.clearCanvas = function() {
@@ -123,6 +127,10 @@ Whiteboard.View = function(canvas) {
         var input = document.getElementById("change-username");
         this.controller.changeName(input.value);
         input.value = "";
+    };
+
+    this.setLineWidth = function(range) {
+        this.controller.setLineWidth(range.value);
     };
 
 };
