@@ -15,24 +15,24 @@ Whiteboard.Controller = function(view) {
     this.startListening = function(socket) {
         var self = this;
         self.socket = socket
-        self.socket.on(Shared.Events.draw_line, function(data) {
+        self.socket.on(Shared.Events.drawLine, function(data) {
             self.view.drawLineBetween(
-                data.point_from, 
-                data.point_to, 
+                data.pointFrom, 
+                data.pointTo, 
                 data.colour,
                 data.lineWidth
             );
         });
-        self.socket.on(Shared.Events.clear_board, function() {
+        self.socket.on(Shared.Events.clearBoard, function() {
             self.view.clearCanvas();
         });
-        self.socket.on(Shared.Events.change_user_id, function(data) {
+        self.socket.on(Shared.Events.changeUserID, function(data) {
             self.userID = data.id;
         });
-        self.socket.on(Shared.Events.users_changed, function(users) {
+        self.socket.on(Shared.Events.usersChanged, function(users) {
             self.usersChanged(users);
         });
-        self.socket.on(Shared.Events.change_name, function(data) {
+        self.socket.on(Shared.Events.changeName, function(data) {
             self.userName = data.userName;
         });
     }
@@ -48,12 +48,12 @@ Whiteboard.Controller = function(view) {
         }
         this.view.drawUsers(userPairs);
     };
-    this.drawLine = function(point_a, point_b) {
+    this.drawLine = function(pointA, pointB) {
         this.socket.emit(
-            Shared.Events.draw_line, 
+            Shared.Events.drawLine, 
             {
-                point_from: point_a,
-                point_to: point_b,
+                pointFrom: pointA,
+                pointTo: pointB,
                 colour: this.lineColour,
                 lineWidth: this.lineWidth
             }
@@ -66,7 +66,7 @@ Whiteboard.Controller = function(view) {
     };
 
     this.clear = function() {
-        this.socket.emit(Shared.Events.clear_board);
+        this.socket.emit(Shared.Events.clearBoard);
     }
 
     this.changeName = function(name) {
@@ -74,7 +74,7 @@ Whiteboard.Controller = function(view) {
             userName: name,
             userID: this.userID
         };
-        this.socket.emit(Shared.Events.change_name, data);
+        this.socket.emit(Shared.Events.changeName, data);
     };
 };
 

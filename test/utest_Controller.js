@@ -10,7 +10,7 @@ describe("Controller", function() {
         controller.socket = socket;
         controller.clear();
         test.assert(socket.emitted.length === 1);
-        test.assert(socket.emitted[0].eventName === Shared.Events.clear_board);
+        test.assert(socket.emitted[0].eventName === Shared.Events.clearBoard);
         test.assert(socket.emitted[0].data === undefined);
     });
 
@@ -46,12 +46,12 @@ describe("Controller", function() {
         controller.socket = socket;
         controller.drawLine({x: 10, y: 10}, {x: 15, y: 10});
         test.assert(socket.emitted.length === 1);
-        test.assert(socket.emitted[0].eventName === Shared.Events.draw_line);
+        test.assert(socket.emitted[0].eventName === Shared.Events.drawLine);
         test.assert(socket.emitted[0].data !== undefined);
-        test.assert(socket.emitted[0].data.point_from.x === 10);
-        test.assert(socket.emitted[0].data.point_from.y === 10);
-        test.assert(socket.emitted[0].data.point_to.x === 15);
-        test.assert(socket.emitted[0].data.point_to.y === 10);
+        test.assert(socket.emitted[0].data.pointFrom.x === 10);
+        test.assert(socket.emitted[0].data.pointFrom.y === 10);
+        test.assert(socket.emitted[0].data.pointTo.x === 15);
+        test.assert(socket.emitted[0].data.pointTo.y === 10);
 
         // test the default lineWidth/colour
         test.assert(socket.emitted[0].data.colour === "black");
@@ -60,14 +60,14 @@ describe("Controller", function() {
         controller.lineColour = "unknown-colour";
         controller.drawLine({x: 10, y: 10}, {x: 15, y: 10});
         test.assert(socket.emitted.length === 2);
-        test.assert(socket.emitted[1].eventName === Shared.Events.draw_line);
+        test.assert(socket.emitted[1].eventName === Shared.Events.drawLine);
         test.assert(socket.emitted[1].data !== undefined);
         test.assert(socket.emitted[1].data.colour === "unknown-colour");
 
         controller.lineWidth = 14;
         controller.drawLine({x: 10, y: 10}, {x: 15, y: 10});
         test.assert(socket.emitted.length === 3);
-        test.assert(socket.emitted[2].eventName === Shared.Events.draw_line);
+        test.assert(socket.emitted[2].eventName === Shared.Events.drawLine);
         test.assert(socket.emitted[2].data !== undefined);
         test.assert(socket.emitted[2].data.lineWidth === 14);
 

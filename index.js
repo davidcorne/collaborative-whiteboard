@@ -21,10 +21,10 @@ io.on("connection", function(socket) {
     users[nextUserID] = "User " + nextUserID;
     console.log("A user connected given id " + nextUserID + ", there are " + numberOfUsers + " users.");
     // Set the id on the new user.
-    socket.emit(Shared.Events.change_user_id, {id: nextUserID});
-    socket.emit(Shared.Events.change_name, {userName: users[nextUserID]});
+    socket.emit(Shared.Events.changeUserID, {id: nextUserID});
+    socket.emit(Shared.Events.changeName, {userName: users[nextUserID]});
     // The users have changed
-    io.emit(Shared.Events.users_changed, users);
+    io.emit(Shared.Events.usersChanged, users);
     
     socket.userID = nextUserID;
     
@@ -37,26 +37,26 @@ io.on("connection", function(socket) {
             socket.userID + " disconnected, there are " + numberOfUsers + " users."
         );
         delete users[socket.userID];
-        io.emit(Shared.Events.users_changed, users);
+        io.emit(Shared.Events.usersChanged, users);
     });
-    socket.on(Shared.Events.draw_line, function(data) {
-        io.emit(Shared.Events.draw_line, data);
+    socket.on(Shared.Events.drawLine, function(data) {
+        io.emit(Shared.Events.drawLine, data);
         lines.push(data);
     });
-    socket.on(Shared.Events.clear_board, function() {
-        io.emit(Shared.Events.clear_board);
+    socket.on(Shared.Events.clearBoard, function() {
+        io.emit(Shared.Events.clearBoard);
         lines = [];
     });
-    socket.on(Shared.Events.change_name, function(data) {
+    socket.on(Shared.Events.changeName, function(data) {
         users[data.userID] = data.userName;
-        socket.emit(Shared.Events.change_name, data);
-        io.emit(Shared.Events.users_changed, users);
+        socket.emit(Shared.Events.changeName, data);
+        io.emit(Shared.Events.usersChanged, users);
     });
 
     // Now draw all the existing lines.
     var index = 0;
     for (index = 0; index < lines.length; index++) {
-        socket.emit(Shared.Events.draw_line, lines[index]);
+        socket.emit(Shared.Events.drawLine, lines[index]);
     }
 });
 

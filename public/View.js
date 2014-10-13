@@ -10,7 +10,7 @@ Whiteboard.View = function(canvas) {
     this.context = this.canvas.getContext("2d");
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.cursorDown = false;
+    this.isCursorDown = false;
     this.prevX = 0;
     this.currX = 0;
     this.prevY = 0;
@@ -20,27 +20,27 @@ Whiteboard.View = function(canvas) {
         var self = this;
         self.canvas.addEventListener("mousemove", function (event) {
             event.preventDefault();
-            self.cursor_move(event);
+            self.cursorMove(event);
         }, false);
         self.canvas.addEventListener("mousedown", function (event) {
         event.preventDefault();
-            self.cursor_down(event);
+            self.cursorDown(event);
         }, false);
         self.canvas.addEventListener("mouseup", function (event) {
             event.preventDefault();
-        self.cursor_up(event);
+        self.cursorUp(event);
         }, false);
         self.canvas.addEventListener("touchmove", function (event) {
             event.preventDefault();
-            self.cursor_move(event.touches[0]);
+            self.cursorMove(event.touches[0]);
         });
         self.canvas.addEventListener("touchstart", function (event) {
             event.preventDefault();
-            self.cursor_down(event.touches[0]);
+            self.cursorDown(event.touches[0]);
         });
         self.canvas.addEventListener("touchend", function (event) {
             event.preventDefault();
-            self.cursor_up(event.touches[0]);
+            self.cursorUp(event.touches[0]);
         });
     };
     this.addMouseEvents();
@@ -74,10 +74,10 @@ Whiteboard.View = function(canvas) {
         }
     };
 
-    this.drawLineBetween = function (point_from, point_to, colour, lineWidth) {
+    this.drawLineBetween = function (pointFrom, pointTo, colour, lineWidth) {
         this.context.beginPath();
-        this.context.moveTo(point_from.x, point_from.y);
-        this.context.lineTo(point_to.x, point_to.y);
+        this.context.moveTo(pointFrom.x, pointFrom.y);
+        this.context.lineTo(pointTo.x, pointTo.y);
         this.context.strokeStyle = colour;
         this.context.lineWidth = lineWidth;
         this.context.stroke();
@@ -92,8 +92,8 @@ Whiteboard.View = function(canvas) {
         );
     };
 
-    this.cursor_move = function(event) {
-        if (this.cursorDown) {
+    this.cursorMove = function(event) {
+        if (this.isCursorDown) {
             this.prevX = this.currX;
             this.prevY = this.currY;
             this.currX = event.clientX - this.canvas.offsetLeft;
@@ -102,17 +102,17 @@ Whiteboard.View = function(canvas) {
         }
     }; 
 
-    this.cursor_down = function(event) {
+    this.cursorDown = function(event) {
         this.prevX = this.currX;
         this.prevY = this.currY;
         this.currX = event.clientX - this.canvas.offsetLeft;
         this.currY = event.clientY - this.canvas.offsetTop;
 
-        this.cursorDown = true;
+        this.isCursorDown = true;
     }; 
 
-    this.cursor_up = function(event) {
-        this.cursorDown = false;
+    this.cursorUp = function(event) {
+        this.isCursorDown = false;
     }; 
 
     this.setColour = function(imageElement) {
