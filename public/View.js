@@ -1,3 +1,9 @@
+// if imported by node, initialise Whiteboard
+if (typeof exports != "undefined") {
+    var Whiteboard = {};
+    var Shared = require("./Shared");
+}
+
 Whiteboard.View = function(canvas) {
     this.controller = null;
     this.canvas = canvas;
@@ -121,3 +127,6 @@ Whiteboard.View = function(canvas) {
 
 };
 
+if (typeof exports != "undefined") {
+    exports.View = Whiteboard.View;
+}
