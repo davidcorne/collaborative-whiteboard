@@ -1,29 +1,51 @@
 <!doctype html>
 <html>
-<head>
-  <title>Whiteboard</title>
-</head>
-<script src="/socket.io/socket.io.js"></script>
-<script src="public/Whiteboard.js"></script>
-<script src="public/Shared.js"></script>
-<script src="public/Controller.js"></script>
-<script src="public/View.js"></script>
-<script src="public/App.js"></script>
-<link rel="stylesheet" type="text/css" href="public/index.css">
-<body onload="Whiteboard.App.init()">
-    <canvas width="400" height="400" style="border:2px solid;"></canvas>
-    <input  type="button" value="clear" size="23" onclick="Whiteboard.App.view.clear()">
-    <img id="black" style="background: black" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
-    <img id="red"   style="background: red" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
-    <img id="blue"  style="background: blue" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
-    <img id="green"  style="background: green" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
-    <img id="orange"  style="background: orange" width="10" height="10" onclick="Whiteboard.App.view.setColour(this)">
-    <img id="current-colour" width="10" height="10">
-    <input id="current-line-width" type="range" onchange="Whiteboard.App.view.setLineWidth(this)" min="1" max="10">
-    <form action="">
-      <input id="change-username" autocomplete="off" />
-      <input type="button" onclick="Whiteboard.App.view.changeName()" value="Change Username"/>
-    </form>
-    <ul id="current-users"><ul>
-</body>
+  <head>
+    <title>Whiteboard</title>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="public/Whiteboard.js"></script>
+  <script src="public/Shared.js"></script>
+  <script src="public/Controller.js"></script>
+  <script src="public/View.js"></script>
+  <script src="public/App.js"></script>
+  <link rel="stylesheet" type="text/css" href="public/index.css">
+  <body onload="Whiteboard.App.init()">
+    <div id="left">
+      <canvas width="700" height="400" style="border:2px solid;"></canvas>
+      <div>
+        <div style="padding-top:20px">
+          <fieldset>
+            <legend>Pen Colours</legend>
+            <img id="black" style="background: black" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+            <img id="red"   style="background: red" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+            <img id="blue"  style="background: blue" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+            <img id="green"  style="background: green" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+            <img id="orange"  style="background: orange" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+            <img id="white"  style="background: white" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+          </fieldset>
+          <fieldset>
+            <legend>Pen Size</legend>
+            <input id="current-line-width" type="range" onchange="Whiteboard.App.view.setLineWidth(this)" min="1" max="10">
+          </fieldset>
+        </div>
+        <fieldset  >
+          <legend>Current Pen</legend>
+          <img id="current-colour" style="float" width="40" height="40">
+        </fieldset>
+        <fieldset >
+          <legend>Board Functions</legend>
+          <input  type="button" value="clear" size="23" onclick="Whiteboard.App.view.clear()">
+          <input  type="button" value="save" size="23">
+        </fieldset>
+      </div>
+    </div>
+    <div id="right">
+      <form action="" style="float:left">
+        <input id="change-username" autocomplete="off" />
+        <input type="button" onclick="Whiteboard.App.view.changeName()" value="Change Username"/>
+      </form>
+      <ul id="current-users"/>
+    </div>
+  </body>
 </html>
