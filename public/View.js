@@ -135,6 +135,7 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         context.lineTo(pointTo.x, pointTo.y);
         context.strokeStyle = colour;
         context.lineWidth = lineWidth;
+        context.lineCap = "round";
         context.stroke();
         context.closePath();
     };
