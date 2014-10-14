@@ -18,6 +18,11 @@ Mocks.MockCanvas = function() {
     };
 };
 
+Mocks.MockDownloadButton = function() {
+    this.addEventListener = function(event, callback) {
+    };
+};
+
 Mocks.MockController = function() {
     this.lastLineDrawn = null;
     this.drawLine = function(point_a, point_b) {

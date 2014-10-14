@@ -4,8 +4,9 @@ if (typeof exports != "undefined") {
     var Shared = require("./Shared");
 }
 
-Whiteboard.View = function(canvas) {
+Whiteboard.View = function(canvas, downloadButton) {
     this.controller = null;
+    this.downloadButton = downloadButton;
     this.canvas = canvas;
     this.context = this.canvas.getContext("2d");
     this.width = this.canvas.width;
@@ -42,6 +43,9 @@ Whiteboard.View = function(canvas) {
             event.preventDefault();
             self.cursorUp(event.touches[0]);
         });
+        self.downloadButton.addEventListener("click", function(event) {
+            self.save();
+        });
     };
     this.addMouseEvents();
 
@@ -56,7 +60,9 @@ Whiteboard.View = function(canvas) {
             lineColour,
             lineWidth
         );
-        
+        // set the pen width slider's value
+        var slider = document.getElementById("current-line-width");
+        slider.value = lineWidth;
     };
 
     this.clearCanvas = function() {
@@ -72,8 +78,9 @@ Whiteboard.View = function(canvas) {
         this.controller.clear()
     };
 
-    this.save = function() {
-        this.controller.saveLocal();
+    this.save = function(event) {
+        var dataURL = this.canvas.toDataURL("image/png");
+        this.downloadButton.href = dataURL;
     };
 
     this.drawUsers = function(usersPairs) {
@@ -89,7 +96,13 @@ Whiteboard.View = function(canvas) {
     };
 
     this.drawLineBetween = function(pointFrom, pointTo, colour, lineWidth) {
-        this.drawLineOnContext(this.context, pointFrom, pointTo, colour, lineWidth);
+        this.drawLineOnContext(
+            this.context, 
+            pointFrom, 
+            pointTo, 
+            colour, 
+            lineWidth
+        );
     };
 
     this.drawLineOnContext = function(

@@ -4,7 +4,7 @@ var Mocks = require("./Mocks");
 
 describe("View", function() {
     it("draw with mouse", function() {
-        var view = new View.View(new Mocks.MockCanvas());
+        var view = new View.View(new Mocks.MockCanvas(), new Mocks.MockDownloadButton());
         var controller = new Mocks.MockController();
         view.controller = controller;
         

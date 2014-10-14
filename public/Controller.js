@@ -89,6 +89,7 @@ Whiteboard.Controller = function(view) {
             this.view = view;
             this.setColour("black");
             this.setLineWidth(2);
+            this.view.displayCurrentPen(this.lineColour, this.lineWidth);
         };
     };
     this.setView(view);
