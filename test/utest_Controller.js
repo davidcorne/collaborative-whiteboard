@@ -24,7 +24,7 @@ describe("Controller", function() {
         controller.usersChanged({1: "Dave"});
         test.assert(view.users.length === 1);
         test.assert(view.users[0].userName === "Dave");
-        test.assert(view.users[0].colour === "black");
+        test.assert(!view.users[0].currentUser);
 
         // test that it uses ID not Name
         controller.userName = "test";
@@ -32,12 +32,12 @@ describe("Controller", function() {
         controller.usersChanged({"1": "test"});
         test.assert(view.users.length === 1);
         test.assert(view.users[0].userName === "test");
-        test.assert(view.users[0].colour === "black");
+        test.assert(!view.users[0].currentUser);
 
         controller.usersChanged({5: "test"});
         test.assert(view.users.length === 1);
         test.assert(view.users[0].userName === "test");
-        test.assert(view.users[0].colour === "red");
+        test.assert(view.users[0].currentUser);
 
     });
     it("emit draw line", function() {

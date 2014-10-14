@@ -40,11 +40,10 @@ Whiteboard.Controller = function(view) {
     this.usersChanged = function(users) {
         var userPairs = [];
         for (var userID in users) {
-            var colour = "black";
-            if (userID == this.userID) {
-                colour = "red";
-            }
-            userPairs.push({userName: users[userID], colour: colour});
+            userPairs.push({
+                userName: users[userID],
+                currentUser: userID == this.userID
+            });
         }
         this.view.drawUsers(userPairs);
     };
