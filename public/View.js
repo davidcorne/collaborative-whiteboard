@@ -63,8 +63,8 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         }
         this.drawLineOnContext(
             context, 
-            new Shared.Point(10, 20),
-            new Shared.Point(30, 20),
+            new Shared.Point(5, 20),
+            new Shared.Point(35, 20),
             lineColour,
             lineWidth
         );
