@@ -22,27 +22,27 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         var self = this;
         self.canvas.addEventListener("mousemove", function (event) {
             event.preventDefault();
-            self.cursorMove(event);
+            self.cursorMove(self.eventToCanvasCoords(event));
         }, false);
         self.canvas.addEventListener("mousedown", function (event) {
-        event.preventDefault();
-            self.cursorDown(event);
+            event.preventDefault();
+            self.cursorDown(self.eventToCanvasCoords(event));
         }, false);
         self.canvas.addEventListener("mouseup", function (event) {
             event.preventDefault();
-        self.cursorUp(event);
+            self.cursorUp();
         }, false);
         self.canvas.addEventListener("touchmove", function (event) {
             event.preventDefault();
-            self.cursorMove(event.touches[0]);
+            self.cursorMove(self.eventToCanvasCoords(event.touches[0]));
         });
         self.canvas.addEventListener("touchstart", function (event) {
             event.preventDefault();
-            self.cursorDown(event.touches[0]);
+            self.cursorDown(self.eventToCanvasCoords(event.touches[0]));
         });
         self.canvas.addEventListener("touchend", function (event) {
             event.preventDefault();
-            self.cursorUp(event.touches[0]);
+            self.cursorUp();
         });
         self.downloadButton.addEventListener("click", function(event) {
             self.save();
@@ -105,6 +105,11 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         }
     };
 
+    this.eventToCanvasCoords = function(event) {
+        //TODO actually do the conversion
+        return {x: event.clientX, y: event.clientY};
+    };
+
     this.drawLineBetween = function(pointFrom, pointTo, colour, lineWidth) {
         this.drawLineOnContext(
             this.context, 
@@ -138,26 +143,26 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         );
     };
 
-    this.cursorMove = function(event) {
+    this.cursorMove = function(point) {
         if (this.isCursorDown) {
             this.prevX = this.currX;
             this.prevY = this.currY;
-            this.currX = event.clientX - this.canvas.offsetLeft;
-            this.currY = event.clientY - this.canvas.offsetTop;
+            this.currX = point.x - this.canvas.offsetLeft;
+            this.currY = point.y - this.canvas.offsetTop;
             this.draw();
         }
     }; 
 
-    this.cursorDown = function(event) {
+    this.cursorDown = function(point) {
         this.prevX = this.currX;
         this.prevY = this.currY;
-        this.currX = event.clientX - this.canvas.offsetLeft;
-        this.currY = event.clientY - this.canvas.offsetTop;
+        this.currX = point.x - this.canvas.offsetLeft;
+        this.currY = point.y - this.canvas.offsetTop;
 
         this.isCursorDown = true;
     }; 
 
-    this.cursorUp = function(event) {
+    this.cursorUp = function() {
         this.isCursorDown = false;
     }; 
 
