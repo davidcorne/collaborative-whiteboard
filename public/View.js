@@ -57,6 +57,10 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         var context = 
             document.getElementById("current-colour").getContext("2d");
         context.clearRect(0, 0, 40, 40);
+        if (lineColour === "white") {
+            context.fillStyle = "black";
+            context.fillRect(0, 0, 40, 40);
+        }
         this.drawLineOnContext(
             context, 
             new Shared.Point(10, 20),
