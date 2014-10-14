@@ -106,8 +106,11 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
     };
 
     this.eventToCanvasCoords = function(event) {
-        //TODO actually do the conversion
-        return {x: event.clientX, y: event.clientY};
+        // may not work in all browsers
+        return {
+            x: event.offsetX, 
+            y: event.offsetY
+        };
     };
 
     this.drawLineBetween = function(pointFrom, pointTo, colour, lineWidth) {
