@@ -1,6 +1,6 @@
 // if imported by node, initialise Whiteboard
 if (typeof exports != "undefined") {
-    var Whiteboard = {};
+    var Whiteboard = require("./Whiteboard");;
     var Shared = require("./Shared");
 }
 
