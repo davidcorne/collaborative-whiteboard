@@ -62,17 +62,20 @@ Whiteboard.Controller = function(view) {
 
     this.setColour = function(colour) {
         this.lineColour = colour;
-        this.view.displayCurrentColour(colour);
+        this.view.displayCurrentPen(this.lineColour, this.lineWidth);
     };
 
     this.setLineWidth = function(width) {
         this.lineWidth = width;
-        this.view.displayCurrentLineWidth(width);
+        this.view.displayCurrentPen(this.lineColour, this.lineWidth);
     };
 
     this.clear = function() {
         this.socket.emit(Shared.Events.clearBoard);
     }
+    
+    this.saveLocal = function() {
+    };
 
     this.changeName = function(name) {
         var data = {

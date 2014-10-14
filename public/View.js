@@ -45,12 +45,18 @@ Whiteboard.View = function(canvas) {
     };
     this.addMouseEvents();
 
-    this.displayCurrentColour = function(colour) {
-        document.getElementById("current-colour").style.background = colour;
-    };
-
-    this.displayCurrentLineWidth = function(width) {
-        document.getElementById("current-line-width").value = width;
+    this.displayCurrentPen = function(lineColour, lineWidth) {
+        var context = 
+            document.getElementById("current-colour").getContext("2d");
+        context.clearRect(0, 0, 40, 40);
+        this.drawLineOnContext(
+            context, 
+            new Shared.Point(10, 20),
+            new Shared.Point(30, 20),
+            lineColour,
+            lineWidth
+        );
+        
     };
 
     this.clearCanvas = function() {
@@ -66,6 +72,10 @@ Whiteboard.View = function(canvas) {
         this.controller.clear()
     };
 
+    this.save = function() {
+        this.controller.saveLocal();
+    };
+
     this.drawUsers = function(usersPairs) {
         var ul = document.getElementById("current-users");
         // clear the current users tag.
@@ -78,15 +88,24 @@ Whiteboard.View = function(canvas) {
         }
     };
 
-    this.drawLineBetween = function (pointFrom, pointTo, colour, lineWidth) {
-        this.context.beginPath();
-        this.context.moveTo(pointFrom.x, pointFrom.y);
-        this.context.lineTo(pointTo.x, pointTo.y);
-        this.context.strokeStyle = colour;
-        this.context.lineWidth = lineWidth;
-        this.context.stroke();
-        this.context.closePath();
-        
+    this.drawLineBetween = function(pointFrom, pointTo, colour, lineWidth) {
+        this.drawLineOnContext(this.context, pointFrom, pointTo, colour, lineWidth);
+    };
+
+    this.drawLineOnContext = function(
+        context, 
+        pointFrom,
+        pointTo,
+        colour,
+        lineWidth) 
+    {
+        context.beginPath();
+        context.moveTo(pointFrom.x, pointFrom.y);
+        context.lineTo(pointTo.x, pointTo.y);
+        context.strokeStyle = colour;
+        context.lineWidth = lineWidth;
+        context.stroke();
+        context.closePath();
     };
 
     this.draw = function () {

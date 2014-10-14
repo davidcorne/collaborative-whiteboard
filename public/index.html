@@ -31,12 +31,12 @@
         </div>
         <fieldset  >
           <legend>Current Pen</legend>
-          <img id="current-colour" style="float" width="40" height="40">
+          <canvas id="current-colour" style="float" width="40" height="40">
         </fieldset>
         <fieldset >
           <legend>Board Functions</legend>
           <input  type="button" value="clear" size="23" onclick="Whiteboard.App.view.clear()">
-          <input  type="button" value="save" size="23">
+          <input  type="button" value="save" size="23" onclick="Whiteboard.App.view.save()">
         </fieldset>
       </div>
     </div>
