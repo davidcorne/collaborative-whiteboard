@@ -3,7 +3,7 @@ Whiteboard.App = {
 
 Whiteboard.App.init = function() {
     Whiteboard.App.view = new Whiteboard.View(
-        document.getElementsByTagName("canvas")[0],
+        document.getElementById("whiteboard"),
         document.getElementById("download-button"),
         document.getElementById("clear-button")
     );
