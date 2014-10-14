@@ -98,7 +98,7 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
         for (var i = 0; i < usersPairs.length; ++i) {
             var li = document.createElement("li");
             if (usersPairs[i].currentUser) {
-                li.style.color = "red";
+                li.className = "current-user";
             }
             li.appendChild(document.createTextNode(usersPairs[i].userName));
             ul.appendChild(li);
