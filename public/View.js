@@ -54,17 +54,17 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
     this.addMouseEvents();
 
     this.displayCurrentPen = function(lineColour, lineWidth) {
-        var context = 
-            document.getElementById("current-colour").getContext("2d");
-        context.clearRect(0, 0, 40, 40);
+        var canvas = document.getElementById("current-colour");
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
         if (lineColour === "white") {
             context.fillStyle = "black";
-            context.fillRect(0, 0, 40, 40);
+            context.fillRect(0, 0, canvas.width, canvas.height);
         }
         this.drawLineOnContext(
             context, 
-            new Shared.Point(5, 20),
-            new Shared.Point(35, 20),
+            new Shared.Point(5, canvas.height / 2),
+            new Shared.Point(canvas.width - 5, canvas.height / 2),
             lineColour,
             lineWidth
         );
