@@ -18,7 +18,7 @@ Mocks.MockCanvas = function() {
     };
 };
 
-Mocks.MockDownloadButton = function() {
+Mocks.MockButton = function() {
     this.addEventListener = function(event, callback) {
     };
 };

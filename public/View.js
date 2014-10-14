@@ -4,9 +4,10 @@ if (typeof exports != "undefined") {
     var Shared = require("./Shared");
 }
 
-Whiteboard.View = function(canvas, downloadButton) {
+Whiteboard.View = function(canvas, downloadButton, clearButton) {
     this.controller = null;
     this.downloadButton = downloadButton;
+    this.clearButton = clearButton;
     this.canvas = canvas;
     this.context = this.canvas.getContext("2d");
     this.width = this.canvas.width;
@@ -45,6 +46,9 @@ Whiteboard.View = function(canvas, downloadButton) {
         });
         self.downloadButton.addEventListener("click", function(event) {
             self.save();
+        });
+        self.clearButton.addEventListener("click", function(event) {
+            self.clear();
         });
     };
     this.addMouseEvents();
