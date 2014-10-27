@@ -108,8 +108,8 @@ Whiteboard.View = function(canvas, downloadButton, clearButton) {
     this.eventToCanvasCoords = function(event) {
         // may not work in all browsers
         return {
-            x: event.offsetX, 
-            y: event.offsetY
+            x: event.offsetX + this.canvas.offsetLeft, 
+            y: event.offsetY + this.canvas.offsetTop
         };
     };
 

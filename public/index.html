@@ -11,35 +11,35 @@
   <script src="public/App.js"></script>
   <link rel="stylesheet" type="text/css" href="public/index.css">
   <body onload="Whiteboard.App.init()">
-    <div id="left">
-      <canvas id="whiteboard" width="700" height="400" style="border:2px solid;"></canvas>
-      <div style="padding-top:20px;overflow:hidden;">
-        <fieldset>
-          <legend>Pen Colours</legend>
-          <img id="black" style="background: black" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-          <img id="red"   style="background: red" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-          <img id="blue"  style="background: blue" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-          <img id="green"  style="background: green" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-          <img id="orange"  style="background: orange" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-          <img id="white"  style="background: white" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
-        </fieldset>
-        <fieldset>
-          <legend>Pen Size</legend>
-          <input id="current-line-width" type="range" onchange="Whiteboard.App.view.setLineWidth(this)" min="1" max="15">
-        </fieldset>
-        <fieldset  >
-          <legend>Current Pen</legend>
-          <canvas id="current-colour" style="float" width="40" height="40">
-        </fieldset>
-        <fieldset >
-          <legend>Board Functions</legend>
-          <a href="#" class="button" id="clear-button">Clear</a>
-          <a href="#" class="button" id="download-button" download="whiteboard.png">Download</a>
-        </fieldset>
-      </div>
+    <div class="controls">
+      <fieldset>
+        <legend>Pen Colours</legend>
+        <img id="black"  width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+        <img id="red"    width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+        <img id="blue"   width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+        <img id="green"  width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+        <img id="orange" width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+        <img id="white"  width="40" height="40" onclick="Whiteboard.App.view.setColour(this)">
+      </fieldset>
+      <fieldset>
+        <legend>Pen Size</legend>
+        <input id="current-line-width" type="range" onchange="Whiteboard.App.view.setLineWidth(this)" min="1" max="15">
+      </fieldset>
+      <fieldset  >
+        <legend>Current Pen</legend>
+        <canvas id="current-colour" width="40" height="40">
+      </fieldset>
+      <fieldset >
+        <legend>Board Functions</legend>
+        <a href="#" class="button" id="clear-button">Clear</a>
+        <a href="#" class="button" id="download-button" download="whiteboard.png">Download</a>
+      </fieldset>
     </div>
-    <div id="right">
-      <form action="" style="float:left">
+    <div class="whiteboard-container">
+      <canvas id="whiteboard" width="700" height="400"></canvas>
+    </div>
+    <div class="user-display">
+      <form action="">
         <input id="change-username" autocomplete="off" />
         <input type="button" onclick="Whiteboard.App.view.changeName()" value="Change Username"/>
       </form>
